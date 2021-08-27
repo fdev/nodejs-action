@@ -7,7 +7,7 @@
 ## Usage
 
 ```
-name: Deploy the app
+name: Build
 on: push
 
 jobs:
