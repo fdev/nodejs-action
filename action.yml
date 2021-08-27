@@ -6,6 +6,7 @@ runs:
     # https://github.com/actions/setup-node/issues/32#issuecomment-539794249
     - name: Read .nvmrc
       run: echo ::set-output name=NVMRC::$(cat .nvmrc)
+      shell: bash
       id: nvm
 
     - name: Setup NodeJS
@@ -23,5 +24,5 @@ runs:
         key: ${{ runner.os }}-node-modules-${{ steps.nvm.outputs.NVMRC }}-${{ hashFiles('package-lock.json') }}
 
     - name: Install dependencies
-      if: steps.cache-node-modules.outputs.cache-hit != 'true'
-      run: npm ci
+      run: ${{ steps.cache-node-modules.outputs.cache-hit }} || npm ci
+      shell: bash
