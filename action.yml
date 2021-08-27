@@ -1,0 +1,27 @@
+name: 'NodeJS environment'
+description: 'Sets up a NodeJS environment'
+runs:
+  using: "composite"
+  steps:
+    # https://github.com/actions/setup-node/issues/32#issuecomment-539794249
+    - name: Read .nvmrc
+      run: echo ::set-output name=NVMRC::$(cat .nvmrc)
+      id: nvm
+
+    - name: Setup NodeJS
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ steps.nvm.outputs.NVMRC }}
+
+    # Cache node_modules using `package-lock.json` hash and node version as a key.
+    # When either changes, no cache will be used and `npm ci` will run.
+    - name: Restore node modules from cache
+      uses: actions/cache@v2
+      id: cache-node-modules
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-modules-${{ steps.nvm.outputs.NVMRC }}-${{ hashFiles('package-lock.json') }}
+
+    - name: Install dependencies
+      if: steps.cache-node-modules.outputs.cache-hit != 'true'
+      run: npm ci
