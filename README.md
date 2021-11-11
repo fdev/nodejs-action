@@ -6,22 +6,15 @@
 
 ## Usage
 
-```
-name: Build
-on: push
+```yaml
+- name: Checkout repository
+  uses: actions/checkout@v2
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+- name: Setup NodeJS
+  uses: fdev/nodejs-action@v1
 
-      - name: Setup NodeJS
-        uses: fdev/nodejs-action@v1
-
-      - name: Build
-        run: npm run build
+- name: Build
+  run: npm run build
 ```
 
 
