@@ -1,9 +1,12 @@
 name: "NodeJS environment"
 description: "Sets up a NodeJS environment"
+author: "fdev"
+
 outputs:
   node_version:
     description: "NodeJS version"
     value: ${{ steps.nvmrc.outputs.version }}
+
 runs:
   using: "composite"
   steps:
