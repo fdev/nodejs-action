@@ -23,3 +23,10 @@ jobs:
       - name: Build
         run: npm run build
 ```
+
+
+## Outputs
+
+| Name           | Description                                 |
+|----------------|---------------------------------------------|
+| `node_version` | NodeJS version that was read from `.nvmrc`. |
