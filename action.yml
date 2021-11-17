@@ -31,5 +31,6 @@ runs:
         key: ${{ runner.os }}-node-modules-${{ steps.nvmrc.outputs.version }}-${{ hashFiles('package-lock.json') }}
 
     - name: Install dependencies
-      run: ${{ steps.cache-node-modules.outputs.cache-hit }} || npm ci
+      run: npm ci
+      if: steps.cache-node-modules.outputs.cache-hit != 'true'
       shell: bash
