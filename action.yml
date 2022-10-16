@@ -12,19 +12,19 @@ runs:
   steps:
     # https://github.com/actions/setup-node/issues/32#issuecomment-539794249
     - name: Read .nvmrc
-      run: echo ::set-output name=version::$(cat .nvmrc)
+      run: echo "version=$(cat .nvmrc)" >> $GITHUB_ENV
       shell: bash
       id: nvmrc
 
     - name: Setup NodeJS
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
       with:
         node-version: ${{ steps.nvmrc.outputs.version }}
 
     # Cache node_modules using `package-lock.json` hash and node version as a key.
     # When either changes, no cache will be used and `npm ci` will run.
     - name: Restore node modules from cache
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       id: cache-node-modules
       with:
         path: node_modules
