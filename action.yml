@@ -12,7 +12,7 @@ runs:
   steps:
     # https://github.com/actions/setup-node/issues/32#issuecomment-539794249
     - name: Read .nvmrc
-      run: echo "version=$(cat .nvmrc)" >> $GITHUB_ENV
+      run: echo "version=$(cat .nvmrc)" >> $GITHUB_OUTPUT
       shell: bash
       id: nvmrc
 
